@@ -3,7 +3,7 @@ resource "null_resource" "eks-connection" {
     interpreter = [ "/bin/bash", "-c" ]
     working_dir = "../"
     command = <<EOT
-        sed -i "s/${module.storage.efs_id}/efs_id/g" jenkins/jenkins-master/values.yaml
+        sed -i "s/efs_volume_id/${module.storage.efs_id}/g" jenkins/jenkins-master/values.yaml
 
         # Connect to eks cluster
         aws eks update-kubeconfig --region ${var.region} --name ${module.cluster.cluster_id}

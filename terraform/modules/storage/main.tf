@@ -1,6 +1,7 @@
 resource "aws_efs_file_system" "k8s-efs" {
   creation_token         = "K8s-EFS"
-  availability_zone_name = var.availability-zones[0]
+  performance_mode = "generalPurpose"
+  throughput_mode = "bursting"
 
   tags = {
     Name = "K8s-EFS"
