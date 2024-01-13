@@ -25,7 +25,7 @@ module "storage" {
 
   storage-sg-id      = [module.security.storage_sg_id]
   availability-zones = var.availability-zones
-  subnet-id          = module.network.public_subnets_id[0]
+  subnet-id          = module.network.public_subnets_id
 
   depends_on = [
     module.security

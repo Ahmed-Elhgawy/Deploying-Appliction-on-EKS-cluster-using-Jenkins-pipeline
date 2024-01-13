@@ -3,7 +3,7 @@ variable "availability-zones" {
 }
 
 variable "subnet-id" {
-  type = string
+  type = list(string)
 }
 
 variable "storage-sg-id" {
