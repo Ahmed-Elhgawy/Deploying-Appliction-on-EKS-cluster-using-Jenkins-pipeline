@@ -41,7 +41,7 @@ namespace: jenkins
 presistentVolume:
   name: jenkins-master-pv
   reclaimPolicy: Retain
-  efs_id: efs_id
+  efs_id: efs_volume_id
   
 
 presistentVolumeClaim:
