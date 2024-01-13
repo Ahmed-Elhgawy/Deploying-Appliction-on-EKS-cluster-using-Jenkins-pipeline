@@ -8,8 +8,8 @@ depMetadata:
 replicas: 1
 
 container:
-  imageName: jenkins/jenkins
-  tag: lts-jdk17
+  imageName: elhgawy/jenkins
+  tag: master-kube
   imagePolicy: IfNotPresent
 
 resources:
