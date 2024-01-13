@@ -9,7 +9,7 @@ replicas: 1
 
 container:
   imageName: jenkins/jenkins
-  tag: 2.235.1-lts-alpine
+  tag: lts-jdk17
   imagePolicy: IfNotPresent
 
 resources:
