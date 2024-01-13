@@ -60,6 +60,10 @@ data "aws_iam_policy" "AmazonEKSWorkerNodePolicy" {
   arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
 }
 
+data "aws_iam_policy" "AmazonEFSCSIDriverPolicy" {
+  arn = "arn:aws:iam::aws:policy/service-role/AmazonEFSCSIDriverPolicy"
+}
+
 resource "aws_iam_policy_attachment" "eksClusterRole-attach" {
   name       = "eksClusterRole-attachment"
   roles      = [aws_iam_role.eksClusterRole.name]
@@ -71,7 +75,8 @@ resource "aws_iam_policy_attachment" "AmazonEKSNodeRole-attach" {
   for_each = toset([
     data.aws_iam_policy.AmazonEC2ContainerRegistryReadOnly.arn,
     data.aws_iam_policy.AmazonEKS_CNI_Policy.arn,
-    data.aws_iam_policy.AmazonEKSWorkerNodePolicy.arn
+    data.aws_iam_policy.AmazonEKSWorkerNodePolicy.arn,
+    data.aws_iam_policy.AmazonEFSCSIDriverPolicy.arn
   ])
 
   roles      = [aws_iam_role.AmazonEKSNodeRole.name]
