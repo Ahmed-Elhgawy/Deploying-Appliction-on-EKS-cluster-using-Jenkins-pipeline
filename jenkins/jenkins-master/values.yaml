@@ -1,0 +1,59 @@
+labels:
+  app: jenkins
+  type: master
+############# Deployment #############
+depMetadata:
+  name: jenkins-master
+
+replicas: 1
+
+container:
+  imageName: jenkins/jenkins
+  tag: 2.235.1-lts-alpine
+  imagePolicy: IfNotPresent
+
+resources:
+  limits:
+    mem: "2Gi"
+    cpu: "1000m"
+  requests:
+    mem: "500Mi"
+    cpu: "500m"
+
+volume:
+  name: jenkins-data
+  mountPath: /var/jenkins_home
+
+############# Service #############
+svcMetadata:
+  name: jenkins-master-svc
+
+type: ClusterIP
+
+httpPort: 80
+uiPort: 8080
+slavePort: 50000
+
+############# Namespace #############
+namespace: jenkins
+
+############# Volume #############
+presistentVolume:
+  name: jenkins-master-pv
+  reclaimPolicy: Retain
+  efs_id: efs_id
+  
+
+presistentVolumeClaim:
+  name: jenkins-master-pvc
+  storageCapacity: 5Gi
+
+storageClass:
+  name: efs-sc
+
+############# Service Account #############
+clusterRole:
+  name: jenkins-admin-roles
+
+serviceAccount:
+  name: jenkins-admin

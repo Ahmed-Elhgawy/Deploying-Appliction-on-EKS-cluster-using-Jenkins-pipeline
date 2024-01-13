@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.depMetadata.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      {{- range $key, $val := .Values.labels }}
+        {{ $key }}: {{ $val }}
+      {{- end }}
+  template:
+    metadata:
+      labels:
+        {{- range $key, $val := .Values.labels }}
+          {{ $key }}: {{ $val }}
+        {{- end }}
+    spec:
+      securityContext:
+            runAsUser: 0
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      containers:
+      - name: jenkins-master
+        image: {{ .Values.container.imageName }}:{{ .Values.container.tag }}
+        imagePullPolicy: {{ .Values.container.imagePolicy }}
+        {{- with .Values.resources }}
+        resources:
+          {{- with .limits }}
+          limits:
+            memory: {{ .mem }}
+            cpu: {{ .cpu }}  
+          {{- end }}
+          {{- with .requests }}
+          requests:
+            memory: {{ .mem }}
+            cpu: {{ .cpu }} 
+          {{- end }}
+        {{- end }}
+        ports:
+        - name: ui
+          containerPort: {{ .Values.uiPort }}
+        - name: slave
+          containerPort: {{ .Values.slavePort }}
+        livenessProbe:
+          httpGet:
+            path: "/login"
+            port: {{ .Values.uiPort }}
+          initialDelaySeconds: 180
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: "/login"
+            port: {{ .Values.uiPort }}
+          initialDelaySeconds: 150
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        volumeMounts:
+        - name: {{ .Values.volume.name}}
+          mountPath: {{ .Values.volume.mountPath }}
+      restartPolicy: Always
+      volumes:
+      - name: {{ .Values.volume.name}}
+        persistentVolumeClaim:
+          claimName: {{ .Values.presistentVolumeClaim.name}}

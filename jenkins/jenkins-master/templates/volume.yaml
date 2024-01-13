@@ -1,0 +1,30 @@
+############# Presistent Volume #############
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.presistentVolume.name }}
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: {{ .Values.presistentVolume.reclaimPolicy }}
+  storageClassName: {{ .Values.storageClass.name }}
+  csi:
+    driver: efs.csi.aws.com
+    volumeHandle: {{ .Values.presistentVolume.efs_id }}
+---
+############# Presistent Volume Claim #############
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.presistentVolumeClaim.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  resources:
+    requests:
+      storage: {{ .Values.presistentVolumeClaim.storageCapacity }}
+  accessModes:
+    - ReadWriteMany
+  storageClassName: {{ .Values.storageClass.name }}
