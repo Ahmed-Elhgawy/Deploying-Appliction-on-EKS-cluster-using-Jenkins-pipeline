@@ -13,9 +13,8 @@ resource "aws_eks_node_group" "k8s-node-group" {
   node_role_arn   = var.AmazonEKSNodeRole-arn
   subnet_ids      = var.public-subnets-id
 
-  launch_template {
-   name = var.template-name
-   version = var.template-version
+  remote_access {
+    ec2_ssh_key = var.ssh-key
   }
 
   scaling_config {

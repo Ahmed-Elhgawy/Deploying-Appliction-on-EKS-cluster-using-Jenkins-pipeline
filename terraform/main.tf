@@ -40,13 +40,6 @@ module "bastion" {
   ssh-key         = var.ssh-key
 }
 
-module "template" {
-  source = "./modules/template"
-
-  security-groups-id = [ module.security.remote_access_sg_id ]
-  ssh-key = var.ssh-key
-}
-
 module "roles" {
   source = "./modules/roles"
 }
@@ -58,13 +51,11 @@ module "cluster" {
   cluster-name          = var.cluster-name
   eksClusterRole-arn    = module.roles.eksClusterRole_arn
   AmazonEKSNodeRole-arn = module.roles.AmazonEKSNodeRole_arn
-  template-name = module.template.template_name
-  template-version = module.template.template_version
+  ssh-key = var.ssh-key
 
   depends_on = [
     module.network,
     module.roles,
     module.security,
-    module.template
   ]
 }

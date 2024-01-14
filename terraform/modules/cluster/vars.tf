@@ -14,10 +14,6 @@ variable "public-subnets-id" {
   type = list(string)
 }
 
-variable "template-name" {
-  type = string
-}
-
-variable "template-version" {
-  type = string
+variable "ssh-key" {
+  type    = string
 }
