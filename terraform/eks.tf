@@ -10,9 +10,6 @@ resource "null_resource" "eks-connection" {
         
         # install efs-csi driver as deamanset
         kubectl apply -k "github.com/kubernetes-sigs/aws-efs-csi-driver/deploy/kubernetes/overlays/stable/?ref=master"
-        
-        # insatll jenkins-master on cluster
-        helm install jenkins-master jenkins/jenkins-master/
     EOT
   }
 
