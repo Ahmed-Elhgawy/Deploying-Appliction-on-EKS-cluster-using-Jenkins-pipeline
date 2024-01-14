@@ -6,6 +6,10 @@ output "efs_id" {
   value = module.storage.efs_id
 }
 
+output "bastion_public_ip" {
+  value = module.bastion.bastion_publlic_ip
+}
+
 output "cluster_arn" {
   value = module.cluster.cluster_arn
 }

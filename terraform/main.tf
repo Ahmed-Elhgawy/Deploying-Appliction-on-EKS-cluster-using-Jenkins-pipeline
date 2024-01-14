@@ -32,6 +32,13 @@ module "storage" {
   ]
 }
 
+module "bastion" {
+  source = "./modules/bastion"
+
+  security-groups = [module.security.bastion_sg_id]
+  ssh-key         = var.ssh-key
+}
+
 module "roles" {
   source = "./modules/roles"
 }

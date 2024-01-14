@@ -1,8 +1,8 @@
 resource "null_resource" "eks-connection" {
   provisioner "local-exec" {
-    interpreter = [ "/bin/bash", "-c" ]
+    interpreter = ["/bin/bash", "-c"]
     working_dir = "../"
-    command = <<EOT
+    command     = <<EOT
         sed -i "s/efs_volume_id/${module.storage.efs_id}/g" jenkins/jenkins-master/values.yaml
 
         # Connect to eks cluster
@@ -16,5 +16,5 @@ resource "null_resource" "eks-connection" {
     EOT
   }
 
-  depends_on = [ module.cluster ]
+  depends_on = [module.cluster]
 }
