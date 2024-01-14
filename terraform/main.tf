@@ -32,14 +32,6 @@ module "storage" {
   ]
 }
 
-module "bastion" {
-  source = "./modules/bastion"
-
-  subnet-id = module.network.public_subnets_id[0]
-  security-groups = [module.security.bastion_sg_id]
-  ssh-key         = var.ssh-key
-}
-
 module "roles" {
   source = "./modules/roles"
 }
