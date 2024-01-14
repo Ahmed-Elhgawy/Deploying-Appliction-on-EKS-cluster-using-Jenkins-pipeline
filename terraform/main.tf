@@ -35,8 +35,16 @@ module "storage" {
 module "bastion" {
   source = "./modules/bastion"
 
+  subnet-id = module.network.public_subnets_id[0]
   security-groups = [module.security.bastion_sg_id]
   ssh-key         = var.ssh-key
+}
+
+module "template" {
+  source = "./modules/template"
+
+  security-groups-id = [ module.security.remote_access_sg_id ]
+  ssh-key = var.ssh-key
 }
 
 module "roles" {
@@ -46,17 +54,17 @@ module "roles" {
 module "cluster" {
   source = "./modules/cluster"
 
-  ssh-key               = var.ssh-key
-  remote-access-sg-id   = module.security.remote_access_sg_id
   public-subnets-id     = module.network.public_subnets_id
   cluster-name          = var.cluster-name
   eksClusterRole-arn    = module.roles.eksClusterRole_arn
   AmazonEKSNodeRole-arn = module.roles.AmazonEKSNodeRole_arn
-  instance-types        = var.instance-type
+  template-name = module.template.template_name
+  template-version = module.template.template_version
 
   depends_on = [
     module.network,
     module.roles,
-    module.security
+    module.security,
+    module.template
   ]
 }

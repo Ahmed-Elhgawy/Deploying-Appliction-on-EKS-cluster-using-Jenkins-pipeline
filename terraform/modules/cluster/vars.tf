@@ -14,14 +14,10 @@ variable "public-subnets-id" {
   type = list(string)
 }
 
-variable "instance-types" {
-  type = list(string)
-}
-
-variable "ssh-key" {
+variable "template-name" {
   type = string
 }
 
-variable "remote-access-sg-id" {
+variable "template-version" {
   type = string
 }
