@@ -59,7 +59,7 @@ the main's inputs:
 |region|the region where all resources will be creates o AWS account|"us-east-1"|
 |cidr|used to define ip range that will be used in network|"10.0.0.0/16"|
 |availability-zones|used to define availability zones where resource will be built (depends on region) and define number of subnet will be create to achieve HA in cluster|["us-east-1a", "us-east-1b"]|
-|ssh-key|the pair key that will be add to node ec2 instances that make it connectable using SSH|<font color=red>Must Be Added |
+|ssh-key|the pair key that will be add to node ec2 instances that make it connectable using SSH|Must Be Added |
 |instance-type|the type of instace will be created as nodes for cluster|["t3.medium"]|
 |cluster-name|the name of EKS cluster (should be unique in account domain)|"k8s-cluster"|
 
@@ -146,7 +146,7 @@ the jenkins/jenkins-master/values.yaml file contains all necessary values that h
 |serviceAccount |The username or role that binding with clusterRole and jenkins will use in cluster|
 
 ### Deploy Jenkins on EKS Cluster
-After build EKS Cluster on AWS account using Terraform
+After [build EKS Cluster on AWS account using Terraform](https://github.com/Ahmed-Elhgawy/aws-k8s-jenkins/blob/73594db41c6f0426dfb72f3c7a131a8ae21b7f28/README.md#L68)
 ```
 helm install jenkins-master jenkins/jenkins-master
 ```
