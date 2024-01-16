@@ -146,7 +146,7 @@ the jenkins/jenkins-master/values.yaml file contains all necessary values that h
 |serviceAccount |The username or role that binding with clusterRole and jenkins will use in cluster|
 
 ### Deploy Jenkins on EKS Cluster
-After [build EKS Cluster on AWS account using Terraform](https://github.com/Ahmed-Elhgawy/aws-k8s-jenkins/blob/73594db41c6f0426dfb72f3c7a131a8ae21b7f28/README.md#L68)
+After [build EKS Cluster on AWS account using Terraform](https://github.com/Ahmed-Elhgawy/aws-k8s-jenkins.git/README.md#L68)
 ```
 helm install jenkins-master jenkins/jenkins-master
 ```
