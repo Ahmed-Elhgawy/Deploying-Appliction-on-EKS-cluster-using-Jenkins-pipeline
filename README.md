@@ -18,8 +18,7 @@ the module's inputs:
 |Variable | Description |
 |:--------|:------------|
 |cidr |used to define ip range that will be used in network|
-|availability-zones|used to define availability zones where resource will be built (depends on region) and define number of subnet will be create to achieve HA in cluster
-|
+|availability-zones|used to define availability zones where resource will be built (depends on region) and define number of subnet will be create to achieve HA in cluster|
 
 #### 2. Security Module: 
 used to create security groups that will be used (note: that security group of EKS cluster will be created by default but you can define a custom one) in our cluster we will create security group just for storage \
@@ -27,8 +26,7 @@ the modules inputs:
 |Variable | Description |
 |:--------|:------------|
 |cidr |used to define ip range that have acces to shared storage|
-|vpc-id|the ID of VPC where the security group will be created
-|
+|vpc-id|the ID of VPC where the security group will be created|
 
 #### 3. Storage Module: 
 used to create  EFS (Elastic File System) to be used as a shared storage between nodes in EKS Cluster \
@@ -37,8 +35,7 @@ the module's inputs:
 |:--------|:------------|
 |availability-zones|define availabilty zones where subnet that the storage will be mounted to|
 |subnet-id|define subents that storage will be mouted to (list of subnets)|
-|storage-sg-id|the security group for storage to define which node has access to storage
-|
+|storage-sg-id|the security group for storage to define which node has access to storage|
 
 #### 4. Roles Module:
 define the  policies and roles that cluster and its nodes will use
@@ -52,8 +49,7 @@ the modules inputs:
 |eksClusterRole-arn|the role that EKS cluster will use|
 |AmazonEKSNodeRole-arn|the role that EKS node group will use|
 |public-subnets-id|the ID of subnets where the nodes will be created|
-|ssh-key|the pair key that will be add to node ec2 instances that make it connectable using SSH
-|
+|ssh-key|the pair key that will be add to node ec2 instances that make it connectable using SSH|
 
 #### Terrafoem main:
 that is whee all modules will be combain with each other \
@@ -65,8 +61,7 @@ the main's inputs:
 |availability-zones|used to define availability zones where resource will be built (depends on region) and define number of subnet will be create to achieve HA in cluster|["us-east-1a", "us-east-1b"]|
 |ssh-key|the pair key that will be add to node ec2 instances that make it connectable using SSH|<font color=red>Must Be Added |
 |instance-type|the type of instace will be created as nodes for cluster|["t3.medium"]|
-|cluster-name|the name of EKS cluster (should be unique in account domain)|"k8s-cluster"
-|
+|cluster-name|the name of EKS cluster (should be unique in account domain)|"k8s-cluster"|
 
 There is an eks.tf file, this file used to define null resources that will be used to connect to you cluster after it created and deploy an efs-csi driver as a daemonset on cluster to be used to connect to EFS shared storage on AWS
 
@@ -148,8 +143,7 @@ the jenkins/jenkins-master/values.yaml file contains all necessary values that h
 |presistentVolumeClaim |Information about PVC(name, stoargeCapacity)|
 |storageClass |Information about SC that mount between PV and PVC|
 |clusterRole |Cluster Role Name that contain roles that jenkins will have|
-|serviceAccount |The username or role that binding with clusterRole and jenkins will use in cluster
-|
+|serviceAccount |The username or role that binding with clusterRole and jenkins will use in cluster|
 
 ### Deploy Jenkins on EKS Cluster
 After build EKS Cluster on AWS account using Terraform
